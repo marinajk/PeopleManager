@@ -21,7 +21,23 @@ if(isset($_POST['submit'])){
        break;
     } 
 }
-
+if(isset($_POST['submit']))
+{
+    $man=$_POST['manager'];
+    
+   
+            if(isset($_POST['manager']))
+            {
+                $query="select * from Registration where fn='$man'";
+            $result=mysqli_query($conn, $query);
+            $count = mysqli_num_rows($result);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $mid=$row['uid'];
+            }
+            
+            
+        }
+                
 
 if(isset($_POST['submit'])){
     
@@ -65,7 +81,7 @@ if(filter_has_var(INPUT_POST,'submit'))
             }
             else if($ut=="Employee")
             {    
-                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled) values(NULL,NULL,NULL,'$email','$pass','$ut',NULL)";
+                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled,mid) values(NULL,NULL,NULL,'$email','$pass','$ut',NULL,'$mid')";
             }   
             if(mysqli_query($conn, $query))
             {
@@ -135,7 +151,7 @@ if(filter_has_var(INPUT_POST,'submit'))
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
                             </div>
                                 <div class="form-group">
-                            <select name="level" class="au-input au-input--full">
+                            <select name="level" id="usertype" class="au-input au-input--full" onchange="return showManager();">
                             <option value="0">-----</option>
                             <option value="1">Admin</option>
                             <option value="2">Manager</option>
@@ -154,7 +170,20 @@ if(filter_has_var(INPUT_POST,'submit'))
                                     <label>Confirm Password</label>
                                     <input class="au-input au-input--full" type="password" name="cpassword" placeholder="Confirm Password">
                                 </div>
-                               
+                                <div class="form-group" id="manager" style="visibility:hidden;">
+                                <label>Manager</label>
+                                <select name="manager"  class="au-input au-input--full">
+                                <option value="0">-----</option>
+                                    <?php
+                                    $query="select uid,fn from registration where ut='Manager'";
+                                    $result=mysqli_query($conn, $query);
+                                    while($row=mysqli_fetch_array($result))
+                                    {
+                                        echo "<option value=".$row['fn'].">".$row['fn']." </option>";
+                                    }
+                                    ?>
+                                    </select>
+                                </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="submit">register</button>
                                 
                             </form>
@@ -190,7 +219,21 @@ if(filter_has_var(INPUT_POST,'submit'))
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-
+    <script>
+function showManager()
+{
+var selectBox=document.getElementById('usertype');
+var userInput=selectBox.options[selectBox.selectedIndex].value;
+if(userInput=='3')
+{
+    document.getElementById('manager').style.visibility='visible';
+}
+else{
+    document.getElementById('manager').style.visibility='hidden';
+}
+return false;
+}
+</script>
 </body>
 
 </html>
