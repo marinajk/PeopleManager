@@ -1,13 +1,54 @@
 <?php
 require("db.php");
 session_start();
+$msg='';
 if(!isset($_POST['property'])&& isset($_POST['submit']))
 {
     $msg="Please select the user type";
+
+}
+else 
+{
+    
+   isset($_POST['property']);
+   if(isset($_POST['submit']))
+   {
+       
+    
+    $option = $_POST['property'];
+      
+       switch ($option)
+        {
+           
+           case 1:
+           {
+           $query="select uid,fn,ln,mobno,id from registration";  
+           $msg=" List of All Users";
+               break;
+           }
+           case 2:
+           {
+           $query="select uid,fn,ln,mobno,id from registration where ut='Admin'"; 
+          $msg="List of Admins";
+               break;
+           }
+           case 3:
+           {
+           $query="select uid,fn,ln,mobno,id from registration where ut='Manager'"; 
+         $msg="List of Managers";
+               break;
+           }
+          case 4:
+          {
+          $query="select uid,fn,ln,mobno,id from registration where ut='Employee'"; 
+          $msg="List of Employees";
+          break;
+          }
+        }
+}
 }
 
 
-$msg='';
 
 if(isset($_POST['delete']))
 {
@@ -37,10 +78,10 @@ if(isset($_POST['update']))
     $mobile=$_POST['mobilenumber'];
     $id=$_POST['emailid'];
     $hidden=$_POST['hidden'];
-$mid=$_POST['mid'];
+
     if(filter_has_var(INPUT_POST,'update'))
     {
-    $query="update registration set fn='$first',ln='$last',mobno='$mobile',id='$id', filled='Filled',mid='$mid' where uid='$hidden'";
+    $query="update registration set fn='$first',ln='$last',mobno='$mobile',id='$id', filled='Filled' where uid='$hidden'";
 
     $result=mysqli_query($conn, $query);
 
@@ -68,7 +109,7 @@ $msg="Not updated";
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Manager List</title>
+    <title>Users List</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -114,98 +155,20 @@ $msg="Not updated";
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
+                            <a href="admin.php">
+                                <i class="fas fa-chart-bar"></i>Home</a>
                         </li>
+                        
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="adduser.php">
+                                <i class="far fa-check-square"></i>Add User</a>
                         </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
+                        
+                        
+                        
                     </ul>
                 </div>
             </nav>
@@ -215,105 +178,23 @@ $msg="Not updated";
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
+                <a href="admin.php">
                     <img src="images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li>
-                            </ul>
+                    <li>
+                            <a href="admin.php">
+                                <i class="zmdi zmdi-home"></i>Home</a>
                         </li>
+                        
                         <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
+                            <a href="adduser.php">
+                                <i class="zmdi zmdi-accounts-add"></i>Add User</a>
                         </li>
-                        <li class="active">
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li>
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">Tabs</a>
-                                </li>
-                                <li>
-                                    <a href="card.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">Alerts</a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">Progress Bars</a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">Modals</a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">Switchs</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grids</a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">Fontawesome Icon</a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -328,7 +209,7 @@ $msg="Not updated";
                     <div class="container-fluid">
                         <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for managers &amp; employees..." />
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
@@ -336,154 +217,58 @@ $msg="Not updated";
                             <div class="header-button">
                                 <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-comment-more"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="mess-dropdown js-dropdown">
-                                            <div class="mess__title">
-                                                <p>You have 2 news message</p>
-                                            </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Michelle Moreno</h6>
-                                                    <p>Have sent a photo</p>
-                                                    <span class="time">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                                </div>
-                                                <div class="content">
-                                                    <h6>Diane Myers</h6>
-                                                    <p>You are now connected on message</p>
-                                                    <span class="time">Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__footer">
-                                                <a href="#">View all messages</a>
-                                            </div>
-                                        </div>
+                                        <i class="zmdi zmdi-account"></i>
+                                        <span class="quantity"><?php $query="select * from Registration where ut='Admin'";
+                                                $result=mysqli_query($conn, $query);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count; ?></span>
+                                        
                                     </div>
                                     <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-email"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="email-dropdown js-dropdown">
-                                            <div class="email__title">
-                                                <p>You have 3 New Emails</p>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, 3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>Meeting about new dashboard...</p>
-                                                    <span>Cynthia Harvey, April 12,,2018</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__footer">
-                                                <a href="#">See all emails</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <i class="zmdi zmdi-accounts"></i>
+                                        <span class="quantity"><?php $query="select * from Registration where ut='Manager'";
+                                                $result=mysqli_query($conn, $query);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count; ?></span>
+                                          </div>
                                     <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
-                                        <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
-                                                <p>You have 3 Notifications</p>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c1 img-cir img-40">
-                                                    <i class="zmdi zmdi-email-open"></i>
+                                        <i class="zmdi zmdi-accounts-add"></i>
+                                        <span class="quantity"><?php $query="select * from Registration where ut='Employee'";
+                                                $result=mysqli_query($conn, $query);
+                                                $count = mysqli_num_rows($result);
+                                                echo $count; ?></span>
                                                 </div>
-                                                <div class="content">
-                                                    <p>You got a email notification</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c2 img-cir img-40">
-                                                    <i class="zmdi zmdi-account-box"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Your account has been blocked</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c3 img-cir img-40">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a new file</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__footer">
-                                                <a href="#">All notifications</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                        <img src='ProfilePictures/<?php echo $_SESSION['img'];?>' alt="profile" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#"><?php echo $_SESSION['firstname'].' '.$_SESSION['lastname']?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    <img src='ProfilePictures/<?php echo $_SESSION['img'];?>' alt="profile" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#"><?php echo $_SESSION['firstname'].' '.$_SESSION['lastname']?></a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email"><?php echo $_SESSION['emailid']?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="myaccount.php">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                                </div>
-                                            </div>
+                                               </div>
+                                          
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="login.php">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
@@ -507,7 +292,8 @@ $msg="Not updated";
                                     <div class="table-data__tool-left">
                                         <div class="rs-select2--light rs-select2--md">
                                             <form method=post action=users.php>
-                                            <select class="js-select2" name="property" id="usertype" onchange="return showManagerID();">
+                                            
+                                            <select class="js-select2" name="property" id="usertype"  >
                                             
                                                 <option value="1" selected="selected">All Users</option>
                                                 <option value="2">Admins</option>
@@ -521,9 +307,14 @@ $msg="Not updated";
                                     </div>
                                    
                                 </div>
+                             <?php if($msg!=''): ?>
+                             <?php echo $msg;?> <?php endif; ?>
+                           
+
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
-                                    <h3 class="title-5 m-b-35">List of Users</h3>
+                                    
+                                    <h3 class="title-5 m-b-35"></h3>
                                         <thead>
                                             <tr>
                                                 
@@ -550,20 +341,29 @@ $msg="Not updated";
         {
            
            case 1:
-           $query="select uid,fn,ln,mobno,id,mid from registration";  
-            
+           {
+           $query="select uid,fn,ln,mobno,id from registration";  
+           $msg=" List of All Users";
                break;
+           }
            case 2:
+           {
            $query="select uid,fn,ln,mobno,id from registration where ut='Admin'"; 
-              
+          $msg="List of Admins";
                break;
+           }
            case 3:
+           {
            $query="select uid,fn,ln,mobno,id from registration where ut='Manager'"; 
+         $msg="List of Managers";
                break;
+           }
           case 4:
-          $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'"; 
+          {
+          $query="select uid,fn,ln,mobno,id from registration where ut='Employee'"; 
+          $msg="List of Employees";
           break;
-       
+          }
         }
    $result=mysqli_query($conn,$query);
    
@@ -579,7 +379,7 @@ $msg="Not updated";
        echo "<td>"."<input type=text name=lastname value=".$row['ln']."> </td>";
        echo "<td>"."<input type=text name=mobilenumber value=".$row['mobno']."> </td>";
        echo "<td>"."<input type=text name=emailid value=".$row['id']."> </td>";
-       echo "<td>"."<input type=text name=mid id=mid style='visibility:hidden' value=".$row['mid']."> </td>";
+      
        echo "<td>"."<input type=hidden name=hidden value=".$row['uid']."> </td>";
 
        echo "<td>"."<div class=table-data-feature><button name=update class=item data-toggle=tooltip data-placement=top title=Edit><i class='zmdi zmdi-edit'></i> </button>
@@ -596,8 +396,7 @@ $msg="Not updated";
    }
 
        ?>
-       <?php if($msg!=''): ?>
-   <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
+       
                                                 
                                                 
                                                  
@@ -631,21 +430,9 @@ $msg="Not updated";
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-    <script>
-function showManagerID()
-{
-var selectBox=document.getElementById('usertype');
-var userInput=selectBox.options[selectBox.selectedIndex].value;
-if(userInput=='4'|| userInput=="1")
-{
-    document.getElementById('mid').style.visibility='visible';
-}
-else{
-    document.getElementById('mid').style.visibility='hidden';
-}
-return false;
-}
-</script>
+ 
+    
+
 </body>
 
 </html>

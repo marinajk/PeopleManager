@@ -323,13 +323,14 @@ section {
 
 .page-content--bge5 {
     background: #e5e5e5;
-    height: 100vh;
+    
 }
 
 .login-wrap {
     max-width: 540px;
     padding-top: 8vh;
     margin: 0 auto;
+    padding-bottom: 8vh;
 }
 
 .login-logo {
@@ -376,7 +377,7 @@ section {
 
 .login-content {
     background: #fff;
-    padding: 30px 30px 20px;
+    padding: 30px 30px 20px ;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;

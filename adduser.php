@@ -141,7 +141,7 @@ if(filter_has_var(INPUT_POST,'submit'))
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="#">
+                            <a href="admin.php">
                                 <img src="images/icon/logo.png" alt="CoolAdmin">
                             </a>
                         </div>
