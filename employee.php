@@ -82,7 +82,7 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                         <ul class="list-unstyled">
                             
                             <li>
-                                <a href="#">
+                                <a href="myman.php">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>My Manager</a>
                             </li>
