@@ -33,7 +33,8 @@ if(isset($_POST['submit']))
             $count = mysqli_num_rows($result);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             $mid=$row['uid'];
-            }
+            $mfn=$row['fn'];
+        }
             
             
         }
@@ -81,7 +82,7 @@ if(filter_has_var(INPUT_POST,'submit'))
             }
             else if($ut=="Employee")
             {    
-                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled,mid) values(NULL,NULL,NULL,'$email','$pass','$ut',NULL,'$mid')";
+                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled,mid,mfn) values(NULL,NULL,NULL,'$email','$pass','$ut',NULL,'$mid','$mfn')";
             }   
             if(mysqli_query($conn, $query))
             {
@@ -179,6 +180,7 @@ if(filter_has_var(INPUT_POST,'submit'))
                                     $result=mysqli_query($conn, $query);
                                     while($row=mysqli_fetch_array($result))
                                     {
+                                     
                                         echo "<option value=".$row['fn'].">".$row['fn']." </option>";
                                     }
                                     ?>

@@ -340,30 +340,46 @@ if(isset($_POST['submit']))
                                         </div>
                                          <input type="submit" name="submit" class="btn btn-success" value="Confirm">
                                     </div>
+                                    <div class="table-responsive table-responsive-data2">
+                                    <table class="table table-data2" style='text-align:center;'>
+                                    
+                                    <h3 class="title-5 m-b-35"></h3>
+                                        <thead>
+                                            <tr>
+                                                
+                                                    
+                                            <th></th>
+                                                <th>Employee</th>
+                                                <th>Current Manager</th>
+                                                
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="tr-shadow">
                                     <?php
                                     $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'";
                                     $result=mysqli_query($conn, $query);
                                     while($row=mysqli_fetch_array($result))
                                     {
-                                    $mid=$row['mid'];
-                                    $query="Select fn from registration where uid='$mid'";
+                                    
+
+                                    $query="select uid,fn,ln,mobno,id,mid,mfn from registration where ut='Employee'";
                                     $result=mysqli_query($conn, $query);
                                     while($row=mysqli_fetch_array($result))
                                     {
-                                        $GLOBALS['mfn']=$row['fn'];
-                                      
-
-                                    }     }
-
-                                    $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'";
-                                    $result=mysqli_query($conn, $query);
-                                    while($row=mysqli_fetch_array($result))
-                                    {
-                                    echo "<input type=checkbox id=employee name=employee value=".$row['fn'].">".$row['fn']." ".$GLOBALS['mfn']." <br>";
-
+                                     
+                                       echo "<tr style='text-align:center;'>";                                 
+                                         echo "<td >"."<input type=checkbox id=employee name=employee value=".$row['fn'].">"."</td>";
+                                         echo "<td>".$row['fn']."</td>";
+                                    echo "<td>".$row['mfn']."</td>";
+                                    echo "</tr>";   
                                     }
+                                }
                                    ?>
                                     </form>
+                                </div>
+                                </table>
                                 </div>
                                 <!-- END MAP DATA-->
                             </div>
