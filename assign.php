@@ -20,13 +20,30 @@ if(isset($_POST['submit']))
             $count = mysqli_num_rows($result);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             $mid=$row['uid'];
-            $query="update Registration set mid='$mid' where id='$email'";
+            $mfn=$row['fn'];
             }
             
             
         }
 
+        if(isset($_POST['submit']))
+        {
+           $employee= $_POST["employee"];
+            $b =implode(",",$employee);
+        foreach( $_POST["employee"] as $value)
+        {
 
+                    $query="update Registration set mid='$mid',mfn='$mfn' where fn='$value'";
+                    $result=mysqli_query($conn, $query);
+                    
+                    
+
+        }
+        
+        $msg="Assigned employees to ".$mfn;
+        }
+        
+        
 
 
 
@@ -320,6 +337,9 @@ if(isset($_POST['submit']))
                                         <i class="fas fa-users"></i>Assign Mulitiple Employees to Manager</h3>
                                         <form action="assign.php" method="post">
                                     <div class="filters">
+                                    <div class="btn-danger" style="text-align:center;"> <?php if($msg!=''): ?>
+                            <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
+</div>
                                     <label>Manager</label><br>
                                         <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
                                             <select class="js-select2" name="property">
@@ -358,24 +378,22 @@ if(isset($_POST['submit']))
                                         <tbody>
                                             <tr class="tr-shadow">
                                     <?php
-                                    $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'";
-                                    $result=mysqli_query($conn, $query);
-                                    while($row=mysqli_fetch_array($result))
-                                    {
                                     
-
+                                    
+                                           
                                     $query="select uid,fn,ln,mobno,id,mid,mfn from registration where ut='Employee'";
                                     $result=mysqli_query($conn, $query);
                                     while($row=mysqli_fetch_array($result))
                                     {
                                      
-                                       echo "<tr style='text-align:center;'>";                                 
-                                         echo "<td >"."<input type=checkbox id=employee name=employee value=".$row['fn'].">"."</td>";
+                                       echo "<tr style='text-align:center;'>";   
+                                                                  
+                                         echo "<td >"."<input type=checkbox id=employee name='employee[]' value=".$row['fn'].">"."</td>";
                                          echo "<td>".$row['fn']."</td>";
                                     echo "<td>".$row['mfn']."</td>";
                                     echo "</tr>";   
                                     }
-                                }
+                                
                                    ?>
                                     </form>
                                 </div>
