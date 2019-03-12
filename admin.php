@@ -209,7 +209,11 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                             <a href="users.php">
                                 <i class="fas fa-users"></i>Users</a>
                         </li>
-                                              
+                        <li>
+                            <a href="assign.php">
+                                <i class="fas fa-users"></i>Update Assignment</a>
+                        </li>
+                                             
                             </ul>
                         </li>
                     </ul>

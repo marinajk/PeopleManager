@@ -146,7 +146,7 @@ if(filter_has_var(INPUT_POST,'submit'))
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="" method="post">
+                            <form action="adduser.php" method="post">
                             <div class="btn-danger"> <?php if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
                             </div>

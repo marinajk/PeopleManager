@@ -4,95 +4,34 @@ session_start();
 $msg='';
 if(!isset($_POST['property'])&& isset($_POST['submit']))
 {
-    $msg="Please select the user type";
+    $msg="Please select the manager";
 
 }
-else 
+
+if(isset($_POST['submit']))
 {
+    $man=$_POST['property'];
     
-   isset($_POST['property']);
-   if(isset($_POST['submit']))
-   {
-       
-    
-    $option = $_POST['property'];
-      
-       switch ($option)
-        {
-           
-           case 1:
-           {
-           $query="select uid,fn,ln,mobno,id from registration";  
-           $msg=" List of All Users";
-               break;
-           }
-           case 2:
-           {
-           $query="select uid,fn,ln,mobno,id from registration where ut='Admin'"; 
-          $msg="List of Admins";
-               break;
-           }
-           case 3:
-           {
-           $query="select uid,fn,ln,mobno,id from registration where ut='Manager'"; 
-         $msg="List of Managers";
-               break;
-           }
-          case 4:
-          {
-          $query="select uid,fn,ln,mobno,id from registration where ut='Employee'"; 
-          $msg="List of Employees";
-          break;
-          }
+   
+            if(isset($_POST['property']))
+            {
+                $query="select * from Registration where fn='$man'";
+            $result=mysqli_query($conn, $query);
+            $count = mysqli_num_rows($result);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $mid=$row['uid'];
+            $query="update Registration set mid='$mid' where id='$email'";
+            }
+            
+            
         }
-}
-}
 
 
 
-if(isset($_POST['delete']))
-{
-    $hidden=$_POST['hidden'];
-    if(filter_has_var(INPUT_POST,'delete'))
-    {
-$query="delete from registration where uid='$hidden'";
-
-$result=mysqli_query($conn, $query);
-
-if($result)
-{
-header("refresh:1;url=users.php");
-$msg="Deleted";
-}
-else
- $msg="Not deleted";
-    }
-}
 
 
 
-if(isset($_POST['update']))
-{
-    $first=$_POST['firstname'];
-    $last=$_POST['lastname'];
-    $mobile=$_POST['mobilenumber'];
-    $id=$_POST['emailid'];
-    $hidden=$_POST['hidden'];
 
-    if(filter_has_var(INPUT_POST,'update'))
-    {
-    $query="update registration set fn='$first',ln='$last',mobno='$mobile',id='$id', filled='Filled' where uid='$hidden'";
-
-    $result=mysqli_query($conn, $query);
-
-if($result)
-{
-    $msg="Updated ".$first;
-}
-else
-$msg="Not updated";
-    }
-}
 
 
 
@@ -109,7 +48,7 @@ $msg="Not updated";
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Users List</title>
+    <title>Update Assignment</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -128,6 +67,7 @@ $msg="Not updated";
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
@@ -155,23 +95,98 @@ $msg="Not updated";
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                        
-                        <li>
-                            <a href="admin.php">
-                                <i class="fas fa-chart-bar"></i>Home</a>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="index.html">Dashboard 1</a>
+                                </li>
+                                <li>
+                                    <a href="index2.html">Dashboard 2</a>
+                                </li>
+                                <li>
+                                    <a href="index3.html">Dashboard 3</a>
+                                </li>
+                                <li>
+                                    <a href="index4.html">Dashboard 4</a>
+                                </li>
+                            </ul>
                         </li>
-                        
                         <li>
-                            <a href="adduser.php">
-                                <i class="far fa-check-square"></i>Add User</a>
+                            <a href="chart.html">
+                                <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
-                            <a href="assign.php">
-                                <i class="fas fa-users"></i>Update Assignment</a>
+                            <a href="table.html">
+                                <i class="fas fa-table"></i>Tables</a>
                         </li>
-                        
-                        
-                        
+                        <li>
+                            <a href="form.html">
+                                <i class="far fa-check-square"></i>Forms</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-calendar-alt"></i>Calendar</a>
+                        </li>
+                        <li>
+                            <a href="map.html">
+                                <i class="fas fa-map-marker-alt"></i>Maps</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-copy"></i>Pages</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="login.html">Login</a>
+                                </li>
+                                <li>
+                                    <a href="register.html">Register</a>
+                                </li>
+                                <li>
+                                    <a href="forget-pass.html">Forget Password</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-desktop"></i>UI Elements</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="button.html">Button</a>
+                                </li>
+                                <li>
+                                    <a href="badge.html">Badges</a>
+                                </li>
+                                <li>
+                                    <a href="tab.html">Tabs</a>
+                                </li>
+                                <li>
+                                    <a href="card.html">Cards</a>
+                                </li>
+                                <li>
+                                    <a href="alert.html">Alerts</a>
+                                </li>
+                                <li>
+                                    <a href="progress-bar.html">Progress Bars</a>
+                                </li>
+                                <li>
+                                    <a href="modal.html">Modals</a>
+                                </li>
+                                <li>
+                                    <a href="switch.html">Switchs</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grids</a>
+                                </li>
+                                <li>
+                                    <a href="fontawesome.html">Fontawesome Icon</a>
+                                </li>
+                                <li>
+                                    <a href="typo.html">Typography</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -185,27 +200,34 @@ $msg="Not updated";
                     <img src="images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
-            <div class="menu-sidebar__content js-scrollbar1">
+
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                     <li>
                             <a href="admin.php">
-                                <i class="zmdi zmdi-home"></i>Home</a>
+                                <i class="fas fa-home"></i>Home</a>
+                        </li>
+                    <li>
+                            <a href="adduser.php">
+                                <i class="zmdi zmdi-account-add"></i>Add User</a>
                         </li>
                         
+                      
                         <li>
-                            <a href="adduser.php">
-                                <i class="zmdi zmdi-accounts-add"></i>Add User</a>
+                            <a href="users.php">
+                                <i class="fas fa-users"></i>Users</a>
                         </li>
                         <li>
                             <a href="assign.php">
                                 <i class="fas fa-users"></i>Update Assignment</a>
                         </li>
+                                             
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
-            </div>
+            
         </aside>
-        <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
@@ -287,131 +309,83 @@ $msg="Not updated";
             </header>
             <!-- END HEADER DESKTOP-->
 
-            <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                       
-                                <!-- DATA TABLE -->
-                                
-                                <div class="table-data__tool">
-                                    <div class="table-data__tool-left">
-                                        <div class="rs-select2--light rs-select2--md">
-                                            <form method=post action=users.php>
-                                            
-                                            <select class="js-select2" name="property" id="usertype"  >
-                                            
-                                                <option value="1" selected="selected">All Users</option>
-                                                <option value="2">Admins</option>
-                                                <option value="3">Managers</option>
-                                                <option value="4">Employees</option>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- MAP DATA-->
+                                <div class="map-data m-b-40">
+                                    <h3 class="title-3 m-b-30">
+                                        <i class="fas fa-users"></i>Assign Mulitiple Employees to Manager</h3>
+                                        <form action="assign.php" method="post">
+                                    <div class="filters">
+                                    <label>Manager</label><br>
+                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                            <select class="js-select2" name="property">
+                                                <option selected="selected">-------</option>
+                                                
+                                                <?php
+                                    $query="select uid,fn from registration where ut='Manager'";
+                                    $result=mysqli_query($conn, $query);
+                                    while($row=mysqli_fetch_array($result))
+                                    {
+                                        echo "<option value=".$row['fn'].">".$row['fn']." </option>";
+                                    }
+                                    ?>
                                             </select>
+
                                             <div class="dropDownSelect2"></div>
+
                                         </div>
-                                        <input type="submit" name="submit" class="btn btn-success" value="Confirm">
-</form>
+                                         <input type="submit" name="submit" class="btn btn-success" value="Confirm">
                                     </div>
-                                   
+                                    <?php
+                                    $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'";
+                                    $result=mysqli_query($conn, $query);
+                                    while($row=mysqli_fetch_array($result))
+                                    {
+                                    $mid=$row['mid'];
+                                    $query="Select fn from registration where uid='$mid'";
+                                    $result=mysqli_query($conn, $query);
+                                    while($row=mysqli_fetch_array($result))
+                                    {
+                                        $GLOBALS['mfn']=$row['fn'];
+                                      
+
+                                    }     }
+
+                                    $query="select uid,fn,ln,mobno,id,mid from registration where ut='Employee'";
+                                    $result=mysqli_query($conn, $query);
+                                    while($row=mysqli_fetch_array($result))
+                                    {
+                                    echo "<input type=checkbox id=employee name=employee value=".$row['fn'].">".$row['fn']." ".$GLOBALS['mfn']." <br>";
+
+                                    }
+                                   ?>
+                                    </form>
                                 </div>
-                             <?php if($msg!=''): ?>
-                             <?php echo $msg;?> <?php endif; ?>
-                           
-
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                    
-                                    <h3 class="title-5 m-b-35"></h3>
-                                        <thead>
-                                            <tr>
-                                                
-                                                    
-                                               
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Mobile Number</th>
-                                                <th>Email Address</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="tr-shadow">
-                                            <?php
-   isset($_POST['property']);
-   if(isset($_POST['submit']))
-   {
-       
-    
-    $option = $_POST['property'];
-      
-       switch ($option)
-        {
-           
-           case 1:
-           {
-           $query="select uid,fn,ln,mobno,id from registration";  
-           $msg=" List of All Users";
-               break;
-           }
-           case 2:
-           {
-           $query="select uid,fn,ln,mobno,id from registration where ut='Admin'"; 
-          $msg="List of Admins";
-               break;
-           }
-           case 3:
-           {
-           $query="select uid,fn,ln,mobno,id from registration where ut='Manager'"; 
-         $msg="List of Managers";
-               break;
-           }
-          case 4:
-          {
-          $query="select uid,fn,ln,mobno,id from registration where ut='Employee'"; 
-          $msg="List of Employees";
-          break;
-          }
-        }
-   $result=mysqli_query($conn,$query);
-   
-  
-   if($result-> num_rows>0)
-   {
-   while($row=mysqli_fetch_array($result))
-   {
-       echo "<form action=users.php method=post>";
-   
-       echo "<tr>";
-       echo "<td>"."<input type=text name=firstname value=".$row['fn']."> </td>";
-       echo "<td>"."<input type=text name=lastname value=".$row['ln']."> </td>";
-       echo "<td>"."<input type=text name=mobilenumber value=".$row['mobno']."> </td>";
-       echo "<td>"."<input type=text name=emailid value=".$row['id']."> </td>";
-      
-       echo "<td>"."<input type=hidden name=hidden value=".$row['uid']."> </td>";
-
-       echo "<td>"."<div class=table-data-feature><button name=update class=item data-toggle=tooltip data-placement=top title=Edit><i class='zmdi zmdi-edit'></i> </button>
-       <button name=delete class=item data-toggle=tooltip data-placement=top title=Delete><i class='zmdi zmdi-delete'></i></button></div></td></tr>";
-       
-       echo "</form>";
-   }
-
-   echo "</table>";
-   }}
-
-   else{
-       $msg="No records available";
-   }
-
-       ?>
-       
-                                                
-                                                
-                                                 
-                                               
-                                               
-                                           
+                                <!-- END MAP DATA-->
+                            </div>
+                        </div>
+                        
+                                <!-- END MAP DATA-->
+                                <!-- END PAGE CONTAINER-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                                 </div>
-                                <!-- END DATA TABLE -->
-                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -433,11 +407,19 @@ $msg="Not updated";
     <script src="vendor/chartjs/Chart.bundle.min.js"></script>
     <script src="vendor/select2/select2.min.js">
     </script>
+    <script src="vendor/vector-map/jquery.vmap.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.min.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.sampledata.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.world.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.brazil.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.europe.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.france.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.germany.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.russia.js"></script>
+    <script src="vendor/vector-map/jquery.vmap.usa.js"></script>
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
- 
-    
 
 </body>
 
