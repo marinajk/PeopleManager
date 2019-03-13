@@ -96,6 +96,12 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                                 
                             </a>
                         </li>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="adduserm.php">
+                                <i class="fas fa-tachometer-alt"></i>Add Employee
+                                
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

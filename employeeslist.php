@@ -139,7 +139,7 @@ $msg="Not updated";
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                     <li>
-                            <a href="employee.php">
+                            <a href="manager.php">
                                 <i class="zmdi zmdi-home"></i>Home</a>
                         </li>
                         
