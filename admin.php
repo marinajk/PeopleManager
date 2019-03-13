@@ -73,7 +73,7 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
+                        <a class="logo" href="admin.php">
                             <img src="images/icon/logo.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -213,7 +213,10 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                             <a href="assign.php">
                                 <i class="fas fa-users"></i>Update Assignment</a>
                         </li>
-                                             
+                        <li>
+                            <a href="uploadcsv.php">
+                                <i class="fas fa-users"></i>Add Users using CSV</a>
+                        </li>            
                             </ul>
                         </li>
                     </ul>
