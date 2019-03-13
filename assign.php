@@ -2,11 +2,7 @@
 require("db.php");
 session_start();
 $msg='';
-if(!isset($_POST['property'])&& isset($_POST['submit']))
-{
-    $msg="Please select the manager";
 
-}
 
 if(isset($_POST['submit']))
 {
@@ -28,30 +24,34 @@ if(isset($_POST['submit']))
 
         if(isset($_POST['submit']))
         {
-           $employee= $_POST["employee"];
-            $b =implode(",",$employee);
-        foreach( $_POST["employee"] as $value)
-        {
-
-                    $query="update Registration set mid='$mid',mfn='$mfn' where fn='$value'";
-                    $result=mysqli_query($conn, $query);
-                    
-                    
-
+            if($man!=0 || !empty($man))
+            {
+                if(isset($_POST['employee']))
+                    {
+                    $employee= $_POST["employee"];
+                    $b =implode(",",$employee);
+                    foreach( $_POST["employee"] as $value)
+                    {   
+                        $query="update Registration set mid='$mid',mfn='$mfn' where fn='$value'";
+                        $result=mysqli_query($conn, $query);
+                    }
+            
+                        $msg="Assigned employees to ".$mfn;
+                        $class="btn-success";
+                    }
+                else{
+                    $msg="Please select the employees";
+                    $class="btn-danger";
+                }
+            }
+            else
+            {
+                $msg="Please select the Manager";
+                $class="btn-danger";
+            }
         }
+
         
-        $msg="Assigned employees to ".$mfn;
-        }
-        
-        
-
-
-
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -337,13 +337,14 @@ if(isset($_POST['submit']))
                                         <i class="fas fa-users"></i>Assign Mulitiple Employees to Manager</h3>
                                         <form action="assign.php" method="post">
                                     <div class="filters">
-                                    <div class="btn-danger" style="text-align:center;"> <?php if($msg!=''): ?>
+                                 
+                                    <?php echo "<div class=".$class."  style='text-align:center;'>";  if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
 </div>
                                     <label>Manager</label><br>
                                         <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
                                             <select class="js-select2" name="property">
-                                                <option selected="selected">-------</option>
+                                                <option selected="selected" value="0">-------</option>
                                                 
                                                 <?php
                                     $query="select uid,fn from registration where ut='Manager'";

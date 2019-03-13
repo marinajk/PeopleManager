@@ -4,7 +4,8 @@ session_start();
 $msg='';
 
 
-$mid=$_SESSION['uid'];       
+$mid=$_SESSION['uid']; 
+$mfn=$_SESSION['firstname'];    
 
 if(isset($_POST['submit'])){
     
@@ -27,26 +28,30 @@ if(filter_has_var(INPUT_POST,'submit'))
         
          if(filter_var($email, FILTER_VALIDATE_EMAIL)=== false)
         {
+            $class="btn-danger";
             $msg="Please use a valid E-mail ID";
         }
         else if($pass != $cpass)
         {
+            $class="btn-danger";
             $msg="Passwords don't match";
         }
         else 
         {
             
                
-                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled,mid) values(NULL,NULL,NULL,'$email','$pass','Employee',NULL,'$mid')";
+                $query="insert into Registration(fn,ln,mobno,id,pwd,ut,filled,mid,mfn) values(NULL,NULL,NULL,'$email','$pass','Employee',NULL,'$mid','$mfn')";
               
             if(mysqli_query($conn, $query))
             {
+                $class="btn-success";
                 $msg= "Employee added successfully";
             }
         }
     }
     else
     {
+        $class="btn-danger";
         $msg="Please fill in all the fields";
  
     }
@@ -105,7 +110,8 @@ if(filter_has_var(INPUT_POST,'submit'))
                             <h3 style="text-align:center;">Add Employee</h3>
                             <br>
                             <form action="adduserm.php" method="post">
-                            <div class="btn-danger"> <?php if($msg!=''): ?>
+                            <?php echo "<div class=".$class.">";
+                             if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
 </div>
                                 <div class="form-group">

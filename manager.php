@@ -76,7 +76,7 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
     
             <div class="logo">
           
-                <a href="#">
+                <a href="manager.php">
                     <img src="images/icon/logos.png" alt="Cool Admin" />
                 </a>
             </div>
@@ -92,13 +92,13 @@ $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
                             <a class="js-arrow" href="employeeslist.php">
-                                <i class="fas fa-tachometer-alt"></i>My Employees
+                                <i class="fas fa-users"></i>My Employees
                                 
                             </a>
                         </li>
                         <li class="active has-sub">
                             <a class="js-arrow" href="adduserm.php">
-                                <i class="fas fa-tachometer-alt"></i>Add Employee
+                                <i class="fas fa-user"></i>Add Employee
                                 
                             </a>
                         </li>

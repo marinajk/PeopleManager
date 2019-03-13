@@ -2,6 +2,8 @@
 require("db.php");
 isset($_POST['level']);
 $msg='';
+$class='';
+
 if(isset($_POST['submit'])){
 
     $option = $_POST['level'];
@@ -55,19 +57,21 @@ if(filter_has_var(INPUT_POST,'submit'))
     $pass=$_POST['password'];
     $cpass=$_POST['cpassword'];
     
-
     if( !empty($email) && !empty($pass) && !empty($cpass))
     {
         if($ut=="none")
         {
+            $class="btn-danger";
             $msg="Please select the user type";
         }
         else if(filter_var($email, FILTER_VALIDATE_EMAIL)=== false)
         {
+            $class="btn-danger";
             $msg="Please use a valid E-mail ID";
         }
         else if($pass != $cpass)
         {
+            $class="btn-danger";
             $msg="Passwords don't match";
         }
         else 
@@ -86,12 +90,14 @@ if(filter_has_var(INPUT_POST,'submit'))
             }   
             if(mysqli_query($conn, $query))
             {
+                $class="btn-success";
                 $msg= $ut." added successfully";
             }
         }
     }
     else
     {
+        $class="btn-danger";
         $msg="Please fill in all the fields";
  
     }
@@ -148,7 +154,8 @@ if(filter_has_var(INPUT_POST,'submit'))
                         </div>
                         <div class="login-form">
                             <form action="adduser.php" method="post">
-                            <div class="btn-danger"> <?php if($msg!=''): ?>
+                            <?php echo "<div class=".$class.">";
+                             if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
                             </div>
                                 <div class="form-group">

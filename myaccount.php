@@ -26,18 +26,25 @@ $image=$_FILES['image']['name'];
     $result=mysqli_query($conn, $query);
 if(move_uploaded_file($_FILES['image']['tmp_name'],$target))
 {
+    $class="btn-success";
     $msg="Image uploaded successfully";
 }
 else
 {
+    $class="btn-danger";
     $msg="There was a problem uploading image";
 }
 if($result)
 {
+    $class="btn-success";
     $msg="Updated account details";
 }
 else
-$msg="Not updated";
+{
+    $class="btn-success";
+    $msg="Not updated";
+}
+
     
 }
 
@@ -91,7 +98,7 @@ $msg="Not updated";
                             </a>
                         </div>
                         <div class="login-form">
-                        <div class="btn-danger"> <?php if($msg!=''): ?>
+                        <?php echo "<div class=".$class.">"; if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
                             </div>
                         <?php

@@ -64,7 +64,7 @@ $mid=$_SESSION['mid'];
 <body style="text-align:center;">
 
             <div class="header__logo">
-                        <a href="#">
+                        <a href="employee.php">
                             <img src="images/icon/logo.png"  height="80px" width="300px" alt="CoolAdmin" />
                         </a>
             </div>

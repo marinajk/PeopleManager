@@ -16,10 +16,12 @@ $result=mysqli_query($conn, $query);
 if($result)
 {
 header("refresh:1;url=users.php");
+$class="btn-success";
 $msg="Deleted";
 }
 else
- $msg="Not deleted";
+{$class="btn-success";
+ $msg="Not deleted";}
     }
 }
 
@@ -32,7 +34,29 @@ if(isset($_POST['update']))
     $mobile=$_POST['mobilenumber'];
     $id=$_POST['emailid'];
     $hidden=$_POST['hidden'];
-    if(filter_has_var(INPUT_POST,'update'))
+    if(!empty($first) && !empty($last) && !empty($mobile))
+    {
+        
+     if(!preg_match("/^[a-zA-Z ]*$/",$first))
+    {
+        $msg= "First Name is NOT valid";
+    }
+    
+     else if(!preg_match("/^[a-zA-Z ]*$/",$last))
+    {
+        $msg= "Last Name is NOT valid";
+    }
+    else if(filter_var($id, FILTER_VALIDATE_EMAIL)=== false)
+        {
+            $class="btn-danger";
+            $msg="Please use a valid E-mail ID";
+        }
+    else if(filter_var($mobile,FILTER_VALIDATE_INT) === false && !preg_match("/^\d{10}$/",$mobile) && strlen($mobile)>10 || strlen($mobile)<10 )
+    {
+        $msg= "Mobile Number is NOT valid";
+    }
+
+    else if(filter_has_var(INPUT_POST,'update'))
     {
     $query="update registration set fn='$first',ln='$last',mobno='$mobile',id='$id', filled='Filled' where uid='$hidden'";
 
@@ -40,14 +64,18 @@ if(isset($_POST['update']))
 
 if($result)
 {
+    $class="btn-success";
     $msg="Updated ".$first;
 }
 else
+{
+$class="btn-danger";
 $msg="Not updated";
+
     }
+    }}
+
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -94,7 +122,7 @@ $msg="Not updated";
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
+                        <a class="logo" href="manager.php">
                             <img src="images/icon/logo.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -143,7 +171,10 @@ $msg="Not updated";
                                 <i class="zmdi zmdi-home"></i>Home</a>
                         </li>
                         
-                       
+                        <li>
+                            <a href="adduserm.php">
+                                <i class="fas fa-user"></i>Add User</a>
+                        </li>
                         
                     </ul>
                 </nav>
@@ -207,9 +238,10 @@ $msg="Not updated";
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                   <div style="text-align:center;"> <?php if($msg!=''): ?>
+                   <div style="text-align:center;"> <?php echo "<div class=".$class.">"; if($msg!=''): ?>
                              <?php echo $msg;?> <?php endif; ?>
-                             </div>
+                           
+                           </div>  </div>
                                 <!-- DATA TABLE -->
                                 
                                 <div class="table-data__tool">
@@ -254,7 +286,7 @@ $msg="Not updated";
    {
    while($row=mysqli_fetch_array($result))
    {
-       echo "<form action=users.php method=post>";
+       echo "<form action=employeeslist.php method=post>";
    
        echo "<tr>";
        echo "<td>"."<input type=text name=firstname value=".$row['fn']."> </td>";

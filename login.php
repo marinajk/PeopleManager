@@ -1,15 +1,5 @@
 <?php
-define('HOST','localhost');
-define('USERNAME', 'root');
-define('PASSWORD','goa2020');
-define('DB','NewDB');
-
-$conn = mysqli_connect(HOST,USERNAME,PASSWORD,DB);
-
-if(mysqli_connect_errno())
-{
-    echo "Failed to connect to MySQL".mysqli_connect();
-}
+require("db.php");
 session_start();
 
 
@@ -32,6 +22,7 @@ if(filter_has_var(INPUT_POST,'submit'))
     {
          if(filter_var($email, FILTER_VALIDATE_EMAIL)=== false)
         {
+            $class="btn-danger";
             $msg="Please use a valid E-mail ID";
         }
         
@@ -84,6 +75,7 @@ if(filter_has_var(INPUT_POST,'submit'))
             }
             else
             {
+                $class="btn-danger";
                 $msg="Invalid Email ID or Password";
         
             }
@@ -91,6 +83,7 @@ if(filter_has_var(INPUT_POST,'submit'))
     }
     else
     {
+        $class="btn-danger";
         $msg="Please fill in all the fields";
  
     }
@@ -149,7 +142,7 @@ if(filter_has_var(INPUT_POST,'submit'))
                         </div>
                         <div class="login-form">
                             <form action="" method="post">
-                           <div class="btn-danger"> <?php if($msg!=''): ?>
+                            <?php echo "<div class=".$class.">"; if($msg!=''): ?>
                             <div class="alert"> <?php echo $msg;?> </div><?php endif; ?>
                             </div>
                                 <div class="form-group">
